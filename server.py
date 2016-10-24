@@ -50,11 +50,19 @@ class SIPRegisterHandler(socketserver.DatagramRequestHandler):
                 
                    
             print(self.dict) #Imprimo el diccionario para ver si se borro la gente
-            self.register2json() 
+            self.register2json()
+            self.json2registered() 
             
             
     def register2json(self):
         json.dump(self.dict,open('registered.json', 'w'))
+        
+    def json2registered(self):
+        try:
+            with open ('registered.json') as data_file:
+                self.clientes = json.load(data_file)
+        except:
+            print('No hay registro')
 
 
 if __name__ == "__main__":
