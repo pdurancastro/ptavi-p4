@@ -13,13 +13,21 @@ class SIPRegisterHandler(socketserver.DatagramRequestHandler):
     Echo server class
     """
     dict={}
+    list_client=[]
+    
     def handle(self):                            
         client= self.rfile.read().decode('utf-8').split()                  
         if client[0] == "REGISTER":
-            self.dict[client[1]] = self.client_address[0]
-            print( "(Cliente,Puerto)" + ":" + str(self.client_address))
+            list_client=[self.client_address[0],client[4]]
+            self.dict[client[1]] = list_client
+            print( "(Cliente,Puerto)" + ":" + str(self.client_address)) #Imprime el cliente con su puerto
             self.wfile.write(b"SIP/2.0 200 OK\r\n\r\n")
-            print(self.dict)
+        
+            if client[3] == "Expires:":
+                if list_client[1] == '0':
+                    del self.dict[client[1]]
+                    
+            print(self.dict) #Imprimo el diccionario para ver si se borro la gente
                 
 if __name__ == "__main__":
     PUERTO = int(sys.argv[1])
