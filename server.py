@@ -19,7 +19,8 @@ class SIPRegisterHandler(socketserver.DatagramRequestHandler):
     
     def handle(self):                            
         client= self.rfile.read().decode('utf-8').split()             
-        if client[0] == "REGISTER":
+        #print(client)
+        if client[0] == "REGISTER":            
             list_client=[self.client_address[0],client[4]]
             self.dict[client[1]] = list_client
             print( "(Cliente,Puerto)" + ":" + str(self.client_address)) #Imprime el cliente con su puerto
@@ -36,7 +37,6 @@ class SIPRegisterHandler(socketserver.DatagramRequestHandler):
                 lista=[]       
                 for cliente in self.dict:
                     tiempo_actual = int(time.time())
-                    print(tiempo_actual)
                     if self.dict[cliente][1] < tiempo_actual:
                         lista.append(cliente)
                 for usuario in lista:
@@ -51,18 +51,21 @@ class SIPRegisterHandler(socketserver.DatagramRequestHandler):
                    
             print(self.dict) #Imprimo el diccionario para ver si se borro la gente
             self.register2json()
-            self.json2registered() 
+            self.registered()
+
             
             
     def register2json(self):
         json.dump(self.dict,open('registered.json', 'w'))
         
-    def json2registered(self):
+    def registered(self):
         try:
-            with open ('registered.json') as data_file:
-                self.clientes = json.load(data_file)
+            with open('registered.json') as datafile:
+                self.dict = json.load(datafile)
         except:
-            print('No hay registro')
+            print ('No hay registro')
+        
+
 
 
 if __name__ == "__main__":
