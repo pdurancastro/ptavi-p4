@@ -22,7 +22,7 @@ EXPIRACION = Lista[5]
 with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as my_socket:
     my_socket.connect((SERVIDOR, PUERTO))
     if METODO == 'REGISTER':
-	    LINEA = METODO + " " + 'sip:'+ DIRECCION + " " + 'SIP/2.0\r\nExpires:' + " " + EXPIRACION + '\r\n'
+        LINEA = METODO + " " + 'sip:' + DIRECCION + " " + 'SIP/2.0\r\nExpires:' + " " + EXPIRACION + '\r\n'
     print(LINEA)
     my_socket.send(bytes(LINEA, 'utf-8') + b'\r\n')
     data = my_socket.recv(1024)
