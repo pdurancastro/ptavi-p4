@@ -9,7 +9,7 @@ import sys
 
 # Constantes. Dirección IP del servidor y contenido a enviar
 
-Lista = [sys.argv[1],sys.argv[2],sys.argv[3:],sys.argv[3],sys.argv[4], sys.argv[5]]
+Lista = [sys.argv[1], sys.argv[2], sys.argv[3:], sys.argv[3],sys.argv[4], sys.argv[5]]
 SERVIDOR = Lista[0]
 PUERTO = int(Lista[1])
 LINEA = ' '.join(Lista[2])
@@ -18,10 +18,10 @@ DIRECCION = Lista[4]
 EXPIRACION = Lista[5]
 
 # Creamos el socket, lo configuramos y lo atamos a un servidor/puerto
-with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as my_socket:    
+with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as my_socket:
     my_socket.connect((SERVIDOR, PUERTO))
     if METODO == 'REGISTER':
-	    LINEA = METODO + " " + 'sip:' + DIRECCION + " " + 'SIP/2.0\r\nExpires: ' + EXPIRACION + '\r\n'
+	    LINEA = METODO + " " + 'sip:'+ DIRECCION + " " + 'SIP/2.0\r\nExpires:' + " " + EXPIRACION + '\r\n'
     print(LINEA)
     my_socket.send(bytes(LINEA, 'utf-8') + b'\r\n')
     data = my_socket.recv(1024)
