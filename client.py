@@ -9,7 +9,8 @@ import sys
 
 # Constantes. Dirección IP del servidor y contenido a enviar
 
-Lista = [sys.argv[1], sys.argv[2], sys.argv[3:], sys.argv[3],sys.argv[4], sys.argv[5]]
+Lista = [sys.argv[1], sys.argv[2], sys.argv[3:], sys.argv[3],
+         sys.argv[4], sys.argv[5]]
 SERVIDOR = Lista[0]
 PUERTO = int(Lista[1])
 LINEA = ' '.join(Lista[2])
